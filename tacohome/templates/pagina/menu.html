@@ -1,0 +1,167 @@
+{% extends "pagina/base.html" %}
+{% load static %}
+
+{% block body %}
+<style>
+   .descripcion {
+  background-color: #9b59b6; /* Morado */
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #8e44ad; /* Morado más oscuro */
+  }
+}
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #8936d2b6;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    text-align: center;
+    margin: 1% auto; /* Ajusta el porcentaje según sea necesario para centrar verticalmente */
+    max-width: 60rem; /* Ajusta el ancho máximo según tus necesidades */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 4rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Estilos para la imagen dentro del modal */
+.modal-content img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilos para el texto dentro del modal */
+.modal-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-content ul li {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+</style>
+<section class="menu">
+   <!-- TACOS -->
+   <div class="heading">
+      <img src="{% static 'images/title-img.png' %}" alt="">
+      <h3>Tacos</h3>
+   </div>
+   <div class="box-container">
+   {% for producto in productos %}
+   {% if producto.categorias_id == 1 %}
+      <div class="box" data-aos="fade-up" data-aos-delay="150">
+         <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/2.jpeg' %}{% endif %}"
+         alt="Imagen del producto"/>
+         <div class="content">
+            <h3>{{ producto.nombre }}</h3>
+            <div class="price">${{ producto.precio }}</div>
+            <span>
+               <button type="button" class="description" onclick="openModal('myModal{{ producto.id }}')">Descripción</button>
+            </span>
+         </div>   
+      </div>
+      <div class="modal" id="myModal{{ producto.id }}">
+         <div class="modal-content">
+             <span class="close" onclick="closeModal('myModal{{ producto.id }}')">&times;</span>
+             <ul class="list-unstyled">
+               <li><strong>{{ producto.nombre }} - ${{ producto.precio }}</strong></li>  
+               <li><strong><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"/></strong></li>
+               <li><strong>{{ producto.descripcion }}</strong></li>
+             </ul>
+         </div>
+      </div>
+   {% endif %}
+   {% endfor %}
+   </div>
+
+   <!-- BURRITOS-->
+   <div class="heading">
+      <img src="{% static 'images/title-img.png' %}" alt="">
+      <h3>Burritos</h3>
+   </div>
+   <div class="box-container">
+   {% for producto in productos %}
+   {% if producto.categorias_id == 2 %}
+      <div class="box" data-aos="fade-up" data-aos-delay="150">
+         <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/2.jpeg' %}{% endif %}" alt="Imagen del producto"/>
+         <div class="content">
+            <h3>{{ producto.nombre }}</h3>
+            <div class="price">${{ producto.precio }}</div>
+            <span>
+               <button type="button" class="description" onclick="openModal('myModal{{ producto.id }}')">Descripción</button>
+            </span>
+         </div>   
+      </div>
+      <div class="modal" id="myModal{{ producto.id }}">
+         <div class="modal-content">
+             <span class="close" onclick="closeModal('myModal{{ producto.id }}')">&times;</span>
+             <ul class="list-unstyled">
+               <li><strong>{{ producto.nombre }} - ${{ producto.precio }}</strong></li>  
+               <li><strong><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"/></strong></li>
+               <li><strong>{{ producto.descripcion }}</strong></li>
+             </ul>
+         </div>
+      </div>
+   {% endif %}
+   {% endfor %}
+   </div>
+   <!-- QUESADILLAS-->
+   <div class="heading">
+      <img src="{% static 'images/title-img.png' %}" alt="">
+      <h3>Quesadillas</h3>
+   </div>
+   <div class="box-container">
+   {% for producto in productos %}
+   {% if producto.categorias_id == 3 %}
+      <div class="box" data-aos="fade-up" data-aos-delay="150">
+         <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/2.jpeg' %}{% endif %}" alt="Imagen del producto"/>
+         <div class="content">
+            <h3>{{ producto.nombre }}</h3>
+            <div class="price">${{ producto.precio }}</div>
+            <span>
+               <button type="button" class="description" onclick="openModal('myModal{{ producto.id }}')">Descripción</button>
+            </span>
+         </div>   
+      </div>
+      <div class="modal" id="myModal{{ producto.id }}">
+         <div class="modal-content">
+             <span class="close" onclick="closeModal('myModal{{ producto.id }}')">&times;</span>
+             <ul class="list-unstyled">
+               <li><strong>{{ producto.nombre }} - ${{ producto.precio }}</strong></li>  
+               <li><strong><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"/></strong></li>
+               <li><strong>{{ producto.descripcion }}</strong></li>
+             </ul>
+         </div>
+      </div>
+   {% endif %}
+   {% endfor %}
+   </div>
+</section>
+{% endblock %}
